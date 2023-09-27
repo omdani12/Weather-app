@@ -1,0 +1,24 @@
+def ancestral_names(arr):
+    def romanToInt(s: str) -> int:
+        numerals = {
+            "I": 1, "V": 5, "X": 10,
+            "L": 50, "C": 100, "D": 500, "M": 1000
+        }
+        output = 0
+        prev_value = 0  # Store the previous numeral's value
+        for c in s[::-1]:  # Reverse the string for easier processing
+            value = numerals.get(c, 0)
+            if value < prev_value:
+                output -= value
+            else:
+                output += value
+            prev_value = value
+        return output
+
+    arr.sort(key=lambda x: (x.split(" ")[0], romanToInt(x.split(" ")[1])))
+    return arr
+
+names = ["Steven XL", "Steven XVI", "David IX", "Mary XV", "Mary XIII", "Mary XX"]
+
+print(ancestral_names(names))
+
